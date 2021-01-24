@@ -119,7 +119,7 @@ Option| Type | Required | Description
 Available options for a `contentType` object:
 
 Option| Type | Required | Description
-------|------|---------|----------|------------
+------|------|----------|------------
 `name` | String | Yes | Unique name of content type.
 `label` | String | Yes | Label which appears in block type button and block headers with this content type.
 `class` | String | Yes | Class added to block created with this content type.
