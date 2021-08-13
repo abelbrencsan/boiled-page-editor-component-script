@@ -58,28 +58,37 @@ div.editor {
 					z-index: 1;
 				}
 			}
+
+			// Block header
+			> header.editor-block-header {
+				align-items: center;
+				background-color: $bg-color;
+				border-color: $border-color;
+				border-radius: $border-radius $border-radius 0 0;
+				border-style: solid;
+				border-width: 1px 1px 0 1px;
+				display: flex;
+				justify-content: space-between;
+				padding: ($box-padding * 0.5) $box-padding;
+
+				h1, h2, h3, h4, h5, h6 {
+					font-size: $small-font-size;
+					margin-bottom: 0;
+				}
+			}
+
+			// Block main
+			> div.editor-block-main {
+				background-color: $bg-color;
+				border-radius: 0 0 $border-radius $border-radius;
+				border: 1px solid $border-color;
+				margin-bottom: $editor-gutter;
+				padding: $box-padding;
+			}
 		}
 	}
 
-	// Block header
-	header.editor-block-header {
-		align-items: center;
-		background-color: $bg-color;
-		border-color: $border-color;
-		border-radius: $border-radius $border-radius 0 0;
-		border-style: solid;
-		border-width: 1px 1px 0 1px;
-		display: flex;
-		justify-content: space-between;
-		padding: ($box-padding * 0.5) $box-padding;
-
-		h1, h2, h3, h4, h5, h6 {
-			font-size: $small-font-size;
-			margin-bottom: 0;
-		}
-	}
-
-	ul.editor-block-menu-list > li > button,
+	ul.editor-block-list > li > header.editor-block-header > ul.editor-block-header-menu-list > li > button,
 	ul.editor-block-type-list > li > button,
 	button.editor-block-type-trigger {
 		border: none;
@@ -99,7 +108,7 @@ div.editor {
 		}
 	}
 
-	ul.editor-block-menu-list > li > button,
+	ul.editor-block-list > li > header.editor-block-header > ul.editor-block-header-menu-list > li > button,
 	button.editor-block-type-trigger {
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
@@ -112,7 +121,7 @@ div.editor {
 	}
 
 	// Block menu list
-	ul.editor-block-menu-list {
+	ul.editor-block-list > li > header.editor-block-header > ul.editor-block-header-menu-list {
 		display: flex;
 		list-style: none;
 		margin-bottom: 0;
@@ -129,36 +138,27 @@ div.editor {
 				}
 			}
 
-			&.editor-block-menu-list-item--move-up {
+			&.editor-block-header-menu-list-item.editor-block-header-menu-list-item--move-up {
 
 				> button {
 					background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMjUgMTcuODQtMTIuNSAxMi41IDEuODIwOSAxLjgyMDkgMTAuNjc5LTEwLjY3OSAxMC42NzkgMTAuNjc5IDEuODIwOS0xLjgyMDkiIGZpbGw9IiM2NjYiIHN0cm9rZS13aWR0aD0iMS4yODc3Ii8+PC9zdmc+Cg==");
 				}
 			}
 
-			&.editor-block-menu-list-item--move-down {
+			&.editor-block-header-menu-list-item.editor-block-header-menu-list-item--move-down {
 
 				> button {
 					background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMjUgMzIuMTYtMTIuNS0xMi41IDEuODIwOS0xLjgyMDkgMTAuNjc5IDEwLjY3OSAxMC42NzktMTAuNjc5IDEuODIwOSAxLjgyMDkiIGZpbGw9IiM2NjYiIHN0cm9rZS13aWR0aD0iMS4yODc3Ii8+PC9zdmc+Cg==");
 				}
 			}
 
-			&.editor-block-menu-list-item--remove {
+			&.editor-block-header-menu-list-item.editor-block-header-menu-list-item--remove {
 
 				> button {
 					background-image: url("data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTIuNTY5IDEzLjcxNy0xLjI4ODQgMS4yOTAzIDExLjIxMiAxMS4yMTEtMTEuMjEyIDExLjIxMSAxLjI4ODQgMS4yODg1IDExLjIxMi0xMS4yMTEgMTEuMjEyIDExLjIxMSAxLjI4ODQtMS4yODg1LTExLjIxMi0xMS4yMTEgMTEuMjEyLTExLjIxMi0xLjI4ODQtMS4yODg1LTExLjIxMiAxMS4yMTItMTEuMjEyLTExLjIxMnoiIGZpbGw9IiM2NjYiIHN0cm9rZS13aWR0aD0iLjkxMTE3Ii8+PC9zdmc+Cg==");
 				}
 			}
 		}
-	}
-
-	// Block main
-	div.editor-block-main {
-		background-color: $bg-color;
-		border-radius: 0 0 $border-radius $border-radius;
-		border: 1px solid $border-color;
-		margin-bottom: $editor-gutter;
-		padding: $box-padding;
 	}
 
 	// Block type trigger

@@ -34,12 +34,12 @@ Class name | Description | Example
 `editor-block-list` | Applies block list inside editor. | `<ul class="editor-block-list"></ul>`
 `editor-block-list-item` | Applies a block inside block list. | `<li class="editor-block-list-item"></li>`
 `editor-block-header` | Applies header of a block. | `<header class="editor-block-header"></header>`
-`editor-block-main` | Applies main of a block. | `<div class="editor-block-main"></div>`
-`editor-block-menu-list` | Applies block menu list inside block header. | `<ul class="editor-block-menu-list"></ul>`
-`editor-block-menu-list-item` | Applies a block menu inside block list. | `<li class="editor-block-menu-list-item"></li>`
-`editor-block-menu-list-item--move-up` | Adds `move up` event specific properties to block menu. | `<li class="editor-block-menu-list-item editor-block-menu-list-item--move-up"></li>`
-`editor-block-menu-list-item--move-down` | Adds `move down` event specific properties to block menu. | `<li class="editor-block-menu-list-item editor-block-menu-list-item--move-down"></li>`
-`editor-block-menu-list-item--remove` | Adds `remove` event specific properties to block menu. | `<li class="editor-block-menu-list-item editor-block-menu-list-item--remove"></li>`
+`editor-block-header-menu-list` | Applies block menu list inside block header. | `<ul class="editor-block-header-menu-list"></ul>`
+`editor-block-header-menu-list-item` | Applies a block menu inside block list. | `<li class="editor-block-header-menu-list-item"></li>`
+`editor-block-header-menu-list-item--move-up` | Adds `move up` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-up"></li>`
+`editor-block-header-menu-list-item--move-down` | Adds `move down` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-down"></li>`
+`editor-block-header-menu-list-item--remove` | Adds `remove` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--remove"></li>`
+`editor-block-main` | Applies main area of a block. | `<div class="editor-block-main"></div>`
 `editor-block-type-trigger` | Applies block type trigger inside editor. | `<button class="editor-block-type-trigger"></button>`
 `editor-block-type-list` | Applies block type list inside editor. | `<ul class="editor-block-type-list"></ul>`
 `editor-block-type-list-item` | Applies a block type inside block type list. | `<li class="editor-block-type-list-item"></li>`
@@ -77,12 +77,12 @@ Option| Type | Default | Required | Description
 `blocksClass` | String | 'editor-block-list' | No | Class added to block list element.
 `blockClass` | String | 'editor-block-list-item' | No | Class added to block element.
 `blockHeaderClass` | String | 'editor-block-header' | No | Class added to block header element.
+`blockMenusClass` | String | 'editor-block-header-menu-list' | No | Class added to block menu list element.
+`blockMenuClass` | String | 'editor-block-header-menu-list-item' | No | Class added to block menu element.
+`blockMenuMoveUpClass` | String | 'editor-block-header-menu-list-item--move-up' | No | Class added to block menu element with `moveUp` action.
+`blockMenuMoveDownClass` | String | 'editor-block-header-menu-list-item--move-down' | No | Class added to block menu element with `moveDown` action.
+`blockMenuRemoveClass` | String | 'editor-block-header-menu-list-item--remove' | No | Class added to block menu element with `remove` action.
 `blockMainClass` | String | 'editor-block-main' | No | Class added to block main element.
-`blockMenusClass` | String | 'editor-block-menu-list' | No | Class added to block menu list element.
-`blockMenuClass` | String | 'editor-block-menu-list-item' | No | Class added to block menu element.
-`blockMenuMoveUpClass` | String | 'editor-block-menu-list-item--move-up' | No | Class added to block menu element with `moveUp` action.
-`blockMenuMoveDownClass` | String | 'editor-block-menu-list-item--move-down' | No | Class added to block menu element with `moveDown` action.
-`blockMenuRemoveClass` | String | 'editor-block-menu-list-item--remove' | No | Class added to block menu element with `remove` action.
 `blockTypeTriggerClass` | String | 'editor-block-type-trigger' | No | Class added to block type trigger element.
 `blockTypesClass` | String | 'editor-block-type-list' | No | Class added to block type list element.
 `blockTypeClass` | String | 'editor-block-type-list-item' | No | Class added to block type element.
@@ -301,3 +301,4 @@ app.editor = new Editor({
 });
 app.editor.init();
 ```
+
