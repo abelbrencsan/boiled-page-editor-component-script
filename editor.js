@@ -1,6 +1,6 @@
 /**
- * Editor - v1.0.0
- * Copyright 2020 Abel Brencsan
+ * Editor - v1.1.0
+ * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
 var Editor = function(options) {
@@ -1278,14 +1278,7 @@ Editor.prototype = function () {
 			// Finish destroy
 			this.isInitialized = false;
 			if (this.destroyCallback) this.destroyCallback.call(this);
-		},
-
-		/**
-		 * Get value of "isInitialized" to be able to check editor is initialized or not. (public)
-		 */
-		getIsInitialized: function() {
-			return this.isInitialized;
-		},
+		}
 	};
 
 	return {
@@ -1295,7 +1288,6 @@ Editor.prototype = function () {
 		moveDownBlock: editor.moveDownBlock,
 		removeBlock: editor.removeBlock,
 		getContents: editor.getContents,
-		destroy: editor.destroy,
-		getIsInitialized: editor.getIsInitialized
+		destroy: editor.destroy
 	};
 }();

@@ -176,10 +176,6 @@ index | Integer | Yes | The index at which to remove block.
 
 `destroy()` - Destroy editor. It removes created events and elements relevant to module.
 
-#### Check editor is initialized or not
-
-`getIsInitialized()` - Check editor is initialized or not. It returns `true` when it is already initialized, `false` if not.
-
 ## Examples
 
 ### Example 1
