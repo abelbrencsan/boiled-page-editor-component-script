@@ -36,15 +36,18 @@ Class name | Description | Example
 `editor-block-header` | Applies header of a block. | `<header class="editor-block-header"></header>`
 `editor-block-header-menu-list` | Applies block menu list inside block header. | `<ul class="editor-block-header-menu-list"></ul>`
 `editor-block-header-menu-list-item` | Applies a block menu inside block list. | `<li class="editor-block-header-menu-list-item"></li>`
+`editor-block-header-menu-list-item--remove` | Adds `remove` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--remove"></li>`
+`editor-block-header-menu-list-item--collapse` | Adds `collapse` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--collapse"></li>`
 `editor-block-header-menu-list-item--move-up` | Adds `move up` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-up"></li>`
 `editor-block-header-menu-list-item--move-down` | Adds `move down` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-down"></li>`
-`editor-block-header-menu-list-item--remove` | Adds `remove` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--remove"></li>`
 `editor-block-main` | Applies main area of a block. | `<div class="editor-block-main"></div>`
 `editor-block-type-trigger` | Applies block type trigger inside editor. | `<button class="editor-block-type-trigger"></button>`
 `editor-block-type-list` | Applies block type list inside editor. | `<ul class="editor-block-type-list"></ul>`
 `editor-block-type-list-item` | Applies a block type inside block type list. | `<li class="editor-block-type-list-item"></li>`
 `is-being-created` | Added to block while it is being created. | `<li class="editor-block-list-item is-being-created"></li>`
+`is-collapsing` | Added to block while it is collapsing. | `<li class="editor-block-list-item is-collapsing"></li>`
 `is-removing` | Added to block while it is removing. | `<li class="editor-block-list-item is-removing"></li>`
+`is-collapsed` | Added to block when it is collapsed. | `<li class="editor-block-list-item is-collapsed"></li>`
 `is-swapping` | Added to block while it is swapping. | `<li class="editor-block-list-item is-swapping"></li>`
 `is-bouncing-up` | Added to block while it is bouncing up. | `<li class="editor-block-list-item is-bouncing-up"></li>`
 `is-bouncing-down` | Added to block while it is bouncing down. | `<li class="editor-block-list-item is-bouncing-down"></li>`
@@ -79,29 +82,35 @@ Option| Type | Default | Required | Description
 `blockHeaderClass` | String | 'editor-block-header' | No | Class added to block header element.
 `blockMenusClass` | String | 'editor-block-header-menu-list' | No | Class added to block menu list element.
 `blockMenuClass` | String | 'editor-block-header-menu-list-item' | No | Class added to block menu element.
+`blockMenuRemoveClass` | String | 'editor-block-header-menu-list-item--remove' | No | Class added to block menu element with `remove` action.
+`blockMenuCollapseClass` | String | 'editor-block-header-menu-list-item--collapse' | No | Class added to block menu element with `collapse` action.
 `blockMenuMoveUpClass` | String | 'editor-block-header-menu-list-item--move-up' | No | Class added to block menu element with `moveUp` action.
 `blockMenuMoveDownClass` | String | 'editor-block-header-menu-list-item--move-down' | No | Class added to block menu element with `moveDown` action.
-`blockMenuRemoveClass` | String | 'editor-block-header-menu-list-item--remove' | No | Class added to block menu element with `remove` action.
 `blockMainClass` | String | 'editor-block-main' | No | Class added to block main element.
 `blockTypeTriggerClass` | String | 'editor-block-type-trigger' | No | Class added to block type trigger element.
 `blockTypesClass` | String | 'editor-block-type-list' | No | Class added to block type list element.
 `blockTypeClass` | String | 'editor-block-type-list-item' | No | Class added to block type element.
 `isBeingCreatedClass` | String | 'is-being-created' | No | Class added to block element while it is being created.
 `isRemovingClass` | String | 'is-removing' | No | Class added to block element while it is removing.
+`isCollapsingClass` | String | 'is-collapsing' | No | Class added to block element while it is collapsing.
+`isCollapsedClass` | String | 'is-collapsed' | No | Class added to block element when it is collapsed.
 `isSwappingClass` | String | 'is-swapping' | No | Class added to block element while it is swapping.
 `isBouncingUpClass` | String | 'is-bouncing-up' | No | Class added to block element while it is bouncing up.
 `isBouncingDownClass` | String | 'is-bouncing-down' | No | Class added to to block element while it is bouncing down.
 `isActiveClass` | String | 'is-active' | No | Class added to block element while an action is running or block type trigger element when block type list is opened.
 `isOpenedClass` | String | 'is-opened' | No | Class added to block type list element when it is opened.
+`removeLabel` | String | 'Remove' | No | Text appended to block menu button element when action is `remove`.
+`collapseLabel` | String | 'Collapse' | No | Text appended to block menu button element when action is `collapse`.
 `moveUpLabel` | String | 'Move up' | No | Text appended to block menu button element when action is `moveUp`.
 `moveDownLabel` | String | 'Move down' | No | Text appended to block menu button element when action is `moveDown`.
-`removeLabel` | String | 'Remove' | No | Text appended to block menu button element when action is `remove`.
 `triggerLabel` | String | 'Add block' | No | Text appended to block type trigger element.
 `blockHeadingTag` | String | 'h3' | No | Tag name of heading element to be created inside block header.
 `beforeCreateCallback` | Function | - | No | Callback function before block is created.
 `createCallback` | Function | - | No | Callback function after block is created.
 `beforeRemoveCallback` | Function | - | No | Callback function before block is removed.
 `removeCallback` | Function | - | No | Callback function after block is removed.
+`beforeCollapseCallback` | Function | - | No | Callback function before block is collapsed.
+`collapseCallback` | Function | - | No | Callback function after block is collapsed.
 `bounceUpCallback` | Function | - | No | Callback function after block is bounced up.
 `bounceDownCallback` | Function | - | No | Callback function after block is bounced down.
 `beforeSwapCallback` | Function | - | No | Callback function before block swapping is started.
@@ -144,6 +153,22 @@ content | Number | Yes | A `content` object that defines type and initial conten
 hasAnimation | Boolean | No | Block creation is animated or not. When no parameter is passed, the default value is `true`. Block is appended immediately if animation is disabled.
 index | Integer | No | Append block at given index. If no parameter is passed, it is appended to the end of block list.
 
+#### Remove block
+
+`removeBlock()` - Remove block at given index.
+
+Parameter | Type | Required | Description
+----------|------|----------|------------
+index | Integer | Yes | The index at which to remove block.
+
+#### Collapse block
+
+`collapseBlock()` - Collapse block at given index.
+
+Parameter | Type | Required | Description
+----------|------|----------|------------
+index | Integer | Yes | The index at which to collapse block.
+
 #### Move up block
 
 `moveUpBlock()` - Move up block at given index.
@@ -159,14 +184,6 @@ index | Integer | Yes | The index at which to move up block.
 Parameter | Type | Required | Description
 ----------|------|----------|------------
 index | Integer | Yes | The index at which to move down block.
-
-#### Remove block
-
-`removeBlock()` - Remove block at given index.
-
-Parameter | Type | Required | Description
-----------|------|----------|------------
-index | Integer | Yes | The index at which to remove block.
 
 #### Get contents
 

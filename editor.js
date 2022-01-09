@@ -1,5 +1,5 @@
 /**
- * Editor - v1.1.0
+ * Editor - v1.1.1
  * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
@@ -29,9 +29,10 @@ var Editor = function(options) {
 		blockMainClass: 'editor-block-main',
 		blockMenusClass: 'editor-block-header-menu-list',
 		blockMenuClass: 'editor-block-header-menu-list-item',
+		blockMenuRemoveClass: 'editor-block-header-menu-list-item--remove',
+		blockMenuCollapseClass: 'editor-block-header-menu-list-item--collapse',
 		blockMenuMoveUpClass: 'editor-block-header-menu-list-item--move-up',
 		blockMenuMoveDownClass: 'editor-block-header-menu-list-item--move-down',
-		blockMenuRemoveClass: 'editor-block-header-menu-list-item--remove',
 		blockTypeTriggerClass: 'editor-block-type-trigger',
 		blockTypesClass: 'editor-block-type-list',
 		blockTypeClass: 'editor-block-type-list-item',
@@ -39,6 +40,8 @@ var Editor = function(options) {
 		// State classes
 		isBeingCreatedClass: 'is-being-created',
 		isRemovingClass: 'is-removing',
+		isCollapsingClass: 'is-collapsing',
+		isCollapsedClass: 'is-collapsed',
 		isSwappingClass: 'is-swapping',
 		isBouncingUpClass: 'is-bouncing-up',
 		isBouncingDownClass: 'is-bouncing-down',
@@ -46,9 +49,10 @@ var Editor = function(options) {
 		isOpenedClass: 'is-opened',
 
 		// Labels
+		removeLabel: 'Remove',
+		collapseLabel: 'Collapse',
 		moveUpLabel: 'Move up',
 		moveDownLabel: 'Move down',
-		removeLabel: 'Remove',
 		triggerLabel: 'Add block',
 
 		// Node names
@@ -59,6 +63,8 @@ var Editor = function(options) {
 		createCallback: null,
 		beforeRemoveCallback: null,
 		removeCallback: null,
+		beforeCollapseCallback: null,
+		collapseCallback: null,
 		bounceUpCallback: null,
 		bounceDownCallback: null,
 		beforeSwapCallback: null,
@@ -415,6 +421,54 @@ Editor.prototype = function () {
 		},
 
 		/**
+		 * Collapse block at given index. (public)
+		 * @param index integer
+		 */
+		collapseBlock: function(index) {
+
+			// Check there is no running action
+			if (this.action) return;
+
+			// Init variables
+			var block = this.blocks.items[index];
+
+			// Set action and active index
+			this.action = 'collapseBlock';
+			this.activeIndex = index;
+
+			// Set class and style
+			block.element.classList.add(this.isCollapsingClass);
+			block.element.style.maxHeight = block.element.scrollHeight + 'px';
+
+			// Call callback function
+			if (this.beforeCollapseCallback) this.beforeCollapseCallback.call(this, block);
+		},
+
+		/**
+		 * Block iscollapsed. (private)
+		 */
+		isBlockCollapsed: function() {
+
+			// Init variables
+			var index = this.activeIndex;
+			var block = this.blocks.items[index];
+
+			// Set and remove classes
+			block.element.classList.toggle(this.isCollapsedClass);
+			block.element.classList.remove(this.isCollapsingClass);
+
+			// Reset max height
+			block.element.style.maxHeight = '';
+
+			// Reset instance settings
+			this.action = null;
+			this.activeIndex = null;
+			
+			// Call callback function
+			if (this.collapseCallback) this.collapseCallback.call(this, block);
+		},
+
+		/**
 		 * Move up block at given index. (public)
 		 * @param index integer
 		 */
@@ -547,6 +601,7 @@ Editor.prototype = function () {
 		swapBlocks: function() {
 
 			// Init variables
+			var styles, margins, elemHeights;
 			var index = this.activeIndex;
 			var indexes = editor.getSwappingBlockIndexes.call(this);
 			var block = this.blocks.items[index];
@@ -568,10 +623,40 @@ Editor.prototype = function () {
 			block.element.classList.add(this.isActiveClass);
 			pBlockElem.classList.add(this.isSwappingClass);
 			sBlockElem.classList.add(this.isSwappingClass);
-			
+
+			// Get block styles
+			styles = {
+				'sBlock': window.getComputedStyle(sBlockElem),
+				'pBlock': window.getComputedStyle(pBlockElem)
+			};
+
+			// Get block margins
+			margins = {
+				'sBlock': {
+					'top': parseFloat(styles.sBlock.marginTop),
+					'bottom': parseFloat(styles.sBlock.marginBottom),
+				},
+				'pBlock': {
+					'top': parseFloat(styles.pBlock.marginTop),
+					'bottom': parseFloat(styles.pBlock.marginBottom),
+				}
+			};
+
+			// Handle margin intersections
+			if (margins.sBlock.top && margins.pBlock.bottom) {
+				margins.pBlock.bottom -= parseFloat(styles.sBlock.marginTop);
+				margins.sBlock.top -= parseFloat(styles.pBlock.marginBottom);
+			}
+
+			// Set element heights
+			elemHeights = {
+				'sBlock': (sBlockElem.offsetHeight + margins.sBlock.top + margins.sBlock.bottom),
+				'pBlock': (pBlockElem.offsetHeight + margins.pBlock.top + margins.pBlock.bottom)
+			};
+
 			// Add translations
-			pBlockElem.style.transform = 'translateY(' + sBlockElem.offsetHeight + 'px)';
-			sBlockElem.style.transform = 'translateY(-' + pBlockElem.offsetHeight + 'px)';
+			pBlockElem.style.transform = 'translateY(' + elemHeights.sBlock + 'px)';
+			sBlockElem.style.transform = 'translateY(-' + elemHeights.pBlock + 'px)';
 		
 			// Call callback function
 			if (this.beforeSwapCallback) this.beforeSwapCallback.call(this, block);
@@ -633,6 +718,11 @@ Editor.prototype = function () {
 			var menuElem, buttonElem, className, label;
 			var menus = [];
 			var actions = [
+				{
+					action: 'collapse',
+					label : this.collapseLabel,
+					class : this.blockMenuCollapseClass
+				},
 				{
 					action: 'moveUp',
 					label : this.moveUpLabel,
@@ -1149,15 +1239,17 @@ Editor.prototype = function () {
 				// Block menu is clicked
 				data = editor.findBlockMenuByButtonElem.call(this, event.target);
 				if (typeof data !== 'undefined') {
-
-					if (data.blockMenu.action == 'moveUp') {
+					if (data.blockMenu.action == 'remove') {
+						editor.removeBlock.call(this, data.blockIndex);
+					}
+					else if (data.blockMenu.action == 'collapse') {
+						editor.collapseBlock.call(this, data.blockIndex);
+					}
+					else if (data.blockMenu.action == 'moveUp') {
 						editor.moveUpBlock.call(this, data.blockIndex);
 					}
 					else if (data.blockMenu.action == 'moveDown') {
 						editor.moveDownBlock.call(this, data.blockIndex);
-					}
-					else if (data.blockMenu.action == 'remove') {
-						editor.removeBlock.call(this, data.blockIndex);
 					}
 				}
 
@@ -1197,7 +1289,13 @@ Editor.prototype = function () {
 				if (data !== event.target) return;
 
 				// Run method based on action
-				if (this.action == 'moveUpBlock') {
+				if (this.action == 'removeBlock') {
+					editor.isBlockRemoved.call(this);
+				}
+				else if (this.action == 'collapseBlock') {
+					editor.isBlockCollapsed.call(this);
+				}
+				else if (this.action == 'moveUpBlock') {
 					editor.areBlocksSwapped.call(this);
 				}
 				else if (this.action == 'moveDownBlock') {
@@ -1208,9 +1306,6 @@ Editor.prototype = function () {
 				}
 				else if (this.action == 'bounceDownBlock') {
 					editor.isBlockBouncedDown.call(this);
-				}
-				else if (this.action == 'removeBlock') {
-					editor.isBlockRemoved.call(this);
 				}
 				else if (this.action == 'createBlock') {
 					editor.isBlockCreated.call(this);
@@ -1284,9 +1379,10 @@ Editor.prototype = function () {
 	return {
 		init: editor.init,
 		createBlock: editor.createBlock,
+		removeBlock: editor.removeBlock,
+		collapseBlock: editor.collapseBlock,
 		moveUpBlock: editor.moveUpBlock,
 		moveDownBlock: editor.moveDownBlock,
-		removeBlock: editor.removeBlock,
 		getContents: editor.getContents,
 		destroy: editor.destroy
 	};
