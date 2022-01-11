@@ -38,6 +38,7 @@ Class name | Description | Example
 `editor-block-header-menu-list-item` | Applies a block menu inside block list. | `<li class="editor-block-header-menu-list-item"></li>`
 `editor-block-header-menu-list-item--remove` | Adds `remove` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--remove"></li>`
 `editor-block-header-menu-list-item--collapse` | Adds `collapse` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--collapse"></li>`
+`editor-block-header-menu-list-item--settings` | Adds `settings` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--settings"></li>`
 `editor-block-header-menu-list-item--move-up` | Adds `move up` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-up"></li>`
 `editor-block-header-menu-list-item--move-down` | Adds `move down` event specific properties to block menu. | `<li class="editor-block-header-menu-list-item editor-block-menu-list-item--move-down"></li>`
 `editor-block-main` | Applies main area of a block. | `<div class="editor-block-main"></div>`
@@ -84,6 +85,7 @@ Option| Type | Default | Required | Description
 `blockMenuClass` | String | 'editor-block-header-menu-list-item' | No | Class added to block menu element.
 `blockMenuRemoveClass` | String | 'editor-block-header-menu-list-item--remove' | No | Class added to block menu element with `remove` action.
 `blockMenuCollapseClass` | String | 'editor-block-header-menu-list-item--collapse' | No | Class added to block menu element with `collapse` action.
+`blockMenuSettingsClass` | String | 'editor-block-header-menu-list-item--settings' | No | Class added to block menu element with `settings` action.
 `blockMenuMoveUpClass` | String | 'editor-block-header-menu-list-item--move-up' | No | Class added to block menu element with `moveUp` action.
 `blockMenuMoveDownClass` | String | 'editor-block-header-menu-list-item--move-down' | No | Class added to block menu element with `moveDown` action.
 `blockMainClass` | String | 'editor-block-main' | No | Class added to block main element.
@@ -101,10 +103,12 @@ Option| Type | Default | Required | Description
 `isOpenedClass` | String | 'is-opened' | No | Class added to block type list element when it is opened.
 `removeLabel` | String | 'Remove' | No | Text appended to block menu button element when action is `remove`.
 `collapseLabel` | String | 'Collapse' | No | Text appended to block menu button element when action is `collapse`.
+`settingsLabel` | String | 'Settings' | No | Text appended to block menu button element when action is `settings`.
 `moveUpLabel` | String | 'Move up' | No | Text appended to block menu button element when action is `moveUp`.
 `moveDownLabel` | String | 'Move down' | No | Text appended to block menu button element when action is `moveDown`.
 `triggerLabel` | String | 'Add block' | No | Text appended to block type trigger element.
 `blockHeadingTag` | String | 'h3' | No | Tag name of heading element to be created inside block header.
+`isSettingsClicked` | Function | - | No | Callback function when settings is clicked.
 `beforeCreateCallback` | Function | - | No | Callback function before block is created.
 `createCallback` | Function | - | No | Callback function after block is created.
 `beforeRemoveCallback` | Function | - | No | Callback function before block is removed.

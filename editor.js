@@ -1,5 +1,5 @@
 /**
- * Editor - v1.1.1
+ * Editor - v1.1.2
  * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
@@ -52,7 +52,7 @@ var Editor = function(options) {
 		// Labels
 		removeLabel: 'Remove',
 		collapseLabel: 'Collapse',
-		settings: 'Settings',
+		settingsLabel: 'Settings',
 		moveUpLabel: 'Move up',
 		moveDownLabel: 'Move down',
 		triggerLabel: 'Add block',
