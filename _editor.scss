@@ -35,6 +35,12 @@ div.editor {
 
 			&.is-collapsed {
 				max-height: $editor-block-header-height;
+
+				&:not(.is-collapsing) {
+					> div.editor-block-main {
+						visibility: hidden;
+					}
+				}
 			}
 
 			&.is-collapsing, &.is-being-created, &.is-removing, &.is-bouncing-up, &.is-bouncing-down, &.is-swapping {
