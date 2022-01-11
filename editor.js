@@ -31,6 +31,7 @@ var Editor = function(options) {
 		blockMenuClass: 'editor-block-header-menu-list-item',
 		blockMenuRemoveClass: 'editor-block-header-menu-list-item--remove',
 		blockMenuCollapseClass: 'editor-block-header-menu-list-item--collapse',
+		blockMenuSettingsClass: 'editor-block-header-menu-list-item--settings',
 		blockMenuMoveUpClass: 'editor-block-header-menu-list-item--move-up',
 		blockMenuMoveDownClass: 'editor-block-header-menu-list-item--move-down',
 		blockTypeTriggerClass: 'editor-block-type-trigger',
@@ -51,6 +52,7 @@ var Editor = function(options) {
 		// Labels
 		removeLabel: 'Remove',
 		collapseLabel: 'Collapse',
+		settings: 'Settings',
 		moveUpLabel: 'Move up',
 		moveDownLabel: 'Move down',
 		triggerLabel: 'Add block',
@@ -59,6 +61,7 @@ var Editor = function(options) {
 		blockHeadingTag: 'h3',
 
 		// Callback functions
+		isSettingsClicked: null,
 		beforeCreateCallback: null,
 		createCallback: null,
 		beforeRemoveCallback: null,
@@ -740,6 +743,15 @@ Editor.prototype = function () {
 				}
 			];
 
+			// Add settings to actions when callback function exists
+			if (this.isSettingsClicked) {
+				actions.push({
+					action: 'settings',
+					label : this.settingsLabel,
+					class : this.blockMenuSettingsClass
+				});
+			}
+
 			// Create menus
 			for (var i in actions) {
 
@@ -1244,6 +1256,11 @@ Editor.prototype = function () {
 					}
 					else if (data.blockMenu.action == 'collapse') {
 						editor.collapseBlock.call(this, data.blockIndex);
+					}
+					else if (data.blockMenu.action == 'settings') {
+						if (this.isSettingsClicked) {
+							this.isSettingsClicked.call(this, this.blocks.items[data.blockIndex]);
+						}
 					}
 					else if (data.blockMenu.action == 'moveUp') {
 						editor.moveUpBlock.call(this, data.blockIndex);
