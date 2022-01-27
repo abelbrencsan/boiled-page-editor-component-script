@@ -193,6 +193,15 @@ index | Integer | Yes | The index at which to move down block.
 
 `getContents()` - Get contents from existing blocks. It loops trough each block, calls `getData` function of related `contentType`, then returns all contents as an array.
 
+#### Update block heading
+
+`updateBlockHeading()` - Update heading of given block.
+
+Parameter | Type | Required | Description
+----------|------|----------|------------
+block | Object | Yes | Block which heading is updated.
+text | String | Yes | New text which appears inside heading.
+
 #### Destroy editor
 
 `destroy()` - Destroy editor. It removes created events and elements relevant to module.

@@ -934,6 +934,20 @@ Editor.prototype = function () {
 		},
 
 		/**
+		* Update block heading text. (public)
+		* @param block object
+		* @param text string
+		*/
+		updateBlockHeading: function(block, text) {
+
+			// Get heading elem
+			var headingElem = block.headerElement.querySelector(this.blockHeadingTag);
+			
+			// Update heading elem
+			headingElem.innerHTML = text;
+		},
+
+		/**
 		* Create block main element. (private)
 		*/
 		createBlockMainElem: function() {
@@ -1401,6 +1415,7 @@ Editor.prototype = function () {
 		moveUpBlock: editor.moveUpBlock,
 		moveDownBlock: editor.moveDownBlock,
 		getContents: editor.getContents,
+		updateBlockHeading: editor.updateBlockHeading,
 		destroy: editor.destroy
 	};
 }();
