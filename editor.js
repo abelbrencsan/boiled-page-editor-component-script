@@ -21,6 +21,9 @@ var Editor = function(options) {
 		wrapper: null,
 		contentTypes: [],
 		contents: [],
+
+		// States
+		isCollapseActionHidden: false,
 		
 		// Element classes
 		blocksClass: 'editor-block-list',
@@ -722,11 +725,6 @@ Editor.prototype = function () {
 			var menus = [];
 			var actions = [
 				{
-					action: 'collapse',
-					label : this.collapseLabel,
-					class : this.blockMenuCollapseClass
-				},
-				{
 					action: 'moveUp',
 					label : this.moveUpLabel,
 					class : this.blockMenuMoveUpClass
@@ -742,6 +740,15 @@ Editor.prototype = function () {
 					class : this.blockMenuRemoveClass
 				}
 			];
+
+			// Add collapse to actions when enabled
+			if (!this.isCollapseActionHidden) {
+				actions.unshift({
+					action: 'collapse',
+					label : this.collapseLabel,
+					class : this.blockMenuCollapseClass
+				});
+			}
 
 			// Add settings to actions when callback function exists
 			if (this.isSettingsClicked) {

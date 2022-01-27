@@ -78,6 +78,7 @@ Option| Type | Default | Required | Description
 `wrapper` | Object | null | Yes | Wrapper element of editor.
 `contentTypes` | Array | [] | Yes | Array of `contentType` objects.
 `contents` | Array | [] | No | Array of `content` objects.
+`isCollapseActionHidden` | Boolean | false | No | Collapse action is visible or not in block header.
 `blocksClass` | String | 'editor-block-list' | No | Class added to block list element.
 `blockClass` | String | 'editor-block-list-item' | No | Class added to block element.
 `blockHeaderClass` | String | 'editor-block-header' | No | Class added to block header element.
