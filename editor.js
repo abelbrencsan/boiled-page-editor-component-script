@@ -1357,7 +1357,7 @@ Editor.prototype = function () {
 			else if (event.type == 'keydown') {
 
 				// Esc key is pressed
-				if (event.keyCode == 27) {
+				if (event.key == 'Escape') {
 					editor.closeBlockTypes.call(this, this.blocks.blockTypes);
 				}
 			}
